@@ -4,56 +4,202 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Çarpım Tablosu</title>
+    <title>JavaScript Shadow Çalışması</title>
     <style>
-        table tr td{
-            border:1px solid #666;
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&family=Oswald&family=Roboto&display=swap');
+      
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: darkblue;
         }
-        td{
-            width: 20vW;
-            text-align: center;
-            padding-top: 40px;
-            padding-bottom: 40px;
-            font-weight: bolder;
-            background-color: aqua;
-            font-size: 20px;
+        body div.main{
+            margin:0;
+            padding: 0;
+            width: 100vw;
+            height: 150px;
+            display: flex;
         }
-        h1{
-            text-align: center;
+        div.metin{
+            margin:auto auto 20px auto;
+            padding: 0%;
+            font-size: 30px;
+            color: white;
+            text-shadow: 2px 3px 3px;
         }
         table{
-            justify-self:auto;
+        position: absolute;
+        top:250px; 
+        width: 60vw;
+        left: calc((100vw)/2 - 350px) ;
         }
+       tr,td{
+            border: 2px solid grey;
+            color: white;
+            padding: 0;
+            margin: 0;
+        }
+        td{
+            width: 200px;
+            text-align: center;
+            height: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: sans-serif;
+        }
+        h1{
+            color: white;
+            text-align: center;
+            font-family: sans-serif;
+        }
+        .opaklık-yuksekligi{
+            height: 175px;
+            line-height: 50px;
+        }
+
     </style>
 </head>
 <body>
-    <h1>Çarpım Tablosu</h1>
+    <h1>JAVASCRİPT DOM ETİKETLERİ UYGULAMASI</h1>
+    <div class="main">
+        <div class="metin">Beni Değiştir</div>
+    </div>
+    <table>
+        <tr>
+            <td>
+                <label>Font Size</label>
+            </td>
+            <td>
+                <input type="range" min="20" max="50" id="font-size">
+            </td>
+            <td id="font-size-metin">30</td>
+        </tr>
+        <tr>
+            <td>
+                <label>Font Family</label>
+            </td>
+            <td>
+                <select name="font-family" id="font-family">
+                    <option value="Merriweather" selected>Merriweather</option>
+                    <option value="Montserrat">Montserrat</option>
+                    <option value="Oswald">Oswald</option>
+                    <option value="Roboto">Roboto</option>
+                </select>
+            </td>
+            <td><label id="family-name">Merriweather</label></td>
+        </tr>
+        <tr>
+            <td>
+                <label>Font Color</label>
+            </td>
+            <td>
+                <input type="color" id="fcolor" value="#ff0000">
+            </td>
+            <td><label id="font-color">Default</label></td>
+        </tr>
+        <tr>
+            <td>
+                <label>Background</label>
+            </td>
+            <td>
+                <input type="color" id="bgcolor" value="#D2691E">
+            </td>
+            <td><label id="bgcolor-metin">Default</label></td>
+        </tr>
+        <tr>
+            <td>
+                <label>Font Weight</label>
+            </td>
+            <td>
+                <input type="range" min="100" step="100" max="900" id="bold">
+            </td>
+            <td><label id="bold-metin">Default</label></td>
+        </tr>
+        <tr class="opaklık-yuksekligi">
+            <td>
+                <label>Shadow Attributes</label><br/>
+                <label>Renk</label><br/>
+                <label>Sağ/Sol Değeri</label><br/>
+                <label>Yukarı/Aşağı Değeri</label><br/>
+                <label>Opaklık Değeri</label>
+            </td>
+            <td>
+                <label></label><br/>
+                <label><input type="color" id="shcolor" value="#00FF00"></label><br/>
+                <label><input type="range" min="-30" max="30" id="sagsol" value="1"></label><br/>
+                <label><input type="range" min="-30" max="30" id="yukariasagi" value="1"></label><br/>
+                <label><input type="range" min="1" max="10" id="opaklik" value="1"></label><br/>
+            </td>
+            <td>
+                <label> </label><br/>
+                <label id="scolormetin">Default</label><br/>
+                <label id="sagsolmetin">Default</label><br/>
+                <label id="yukariasagimetin">Default</label><br/>
+                <label id="opaklikmetin">Default</label><br/>
+            </td>
+        </tr>
+      
+    </table>
     <script>
-       document.write("<table>");
-        for (var i=1;i<11;i++){
-            if(i==1 || i==6){
-                document.write("<tr>");
-                document.write("<td>");
-                for (var j=1;j<11;j++){
-                    document.write(i+"x"+j+"="+i*j+"<br/>");
-                }
-                document.write("</td>");
-            }else if (i==5 || i==10){
-                document.write("<td>");
-                for (var j=1;j<11;j++){
-                    document.write(i+"x"+j+"="+i*j+"<br/>");
-                }
-                document.write("</td>");
-                document.write("</tr>")
-            }else {
-                document.write("<td>");
-                for (var j=1;j<11;j++){
-                    document.write(i+"x"+j+"="+i*j+"<br/>");
-                }
-                document.write("</td>");
-            }
+       //font size js
+        document.getElementById("font-size").onchange=function(){
+            var value=this.value;
+            document.querySelector("div.metin").style.fontSize=value+"px";
+            document.getElementById("font-size-metin").innerHTML=value;
         }
-        document.write("</table>")
+        //font family js
+        document.getElementById("font-family").onchange=function(){
+            document.querySelector("div").style.fontFamily=this.value;
+            document.getElementById("family-name").innerHTML=this.value;
+        }
+        //font color js
+        document.getElementById("fcolor").onchange=function(){
+            document.querySelector("div.metin").style.color=this.value;
+            document.getElementById("font-color").innerHTML=this.value;
+        }
+         //font backgroundcolor js
+         document.getElementById("bgcolor").onchange=function(){
+            document.querySelector("body").style.backgroundColor=this.value;
+            document.getElementById("bgcolor-metin").innerHTML=this.value;
+        }
+        //font weight js
+        document.getElementById("bold").onchange=function(){
+            document.querySelector("div.metin").style.fontWeight=this.value;
+            document.getElementById("bold-metin").innerHTML=this.value;
+        }
+        //shadow js
+        document.getElementById("shcolor").onchange=function(){
+            var vshadow=document.getElementById("sagsol").value+"px ";
+            var hshadow=document.getElementById("yukariasagi").value+"px ";
+            var blurradius = document.getElementById("opaklik").value+"px ";
+            var colorshadow =document.getElementById("shcolor").value;
+            document.querySelector("div.metin").style.textShadow=vshadow+hshadow+blurradius+colorshadow;
+            document.getElementById("scolormetin").innerHTML=this.value;
+        }
+        document.getElementById("yukariasagi").onchange=function(){
+            var vshadow=document.getElementById("sagsol").value+"px ";
+            var hshadow=document.getElementById("yukariasagi").value+"px ";
+            var blurradius = document.getElementById("opaklik").value+"px ";
+            var colorshadow =document.getElementById("shcolor").value;
+            document.querySelector("div.metin").style.textShadow=vshadow+hshadow+blurradius+colorshadow;
+            document.getElementById("yukariasagimetin").innerHTML=this.value;
+        }
+        document.getElementById("opaklik").onchange=function(){
+            var vshadow=document.getElementById("sagsol").value+"px ";
+            var hshadow=document.getElementById("yukariasagi").value+"px ";
+            var blurradius = document.getElementById("opaklik").value+"px ";
+            var colorshadow =document.getElementById("shcolor").value;
+            document.querySelector("div.metin").style.textShadow=vshadow+hshadow+blurradius+colorshadow;
+            document.getElementById("opaklikmetin").innerHTML=this.value;
+        }
+        document.getElementById("sagsol").onchange=function(){
+            var vshadow=document.getElementById("sagsol").value+"px ";
+            var hshadow=document.getElementById("yukariasagi").value+"px ";
+            var blurradius = document.getElementById("opaklik").value+"px ";
+            var colorshadow =document.getElementById("shcolor").value;
+            document.querySelector("div.metin").style.textShadow=vshadow+hshadow+blurradius+colorshadow;
+            document.getElementById("sagsolmetin").innerHTML=this.value;
+        }
     </script>
 </body>
 </html>
