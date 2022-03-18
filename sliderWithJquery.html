@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<br>
+    <div class="baslik">JQUERY İLE SLİDER UYGULAMASI</div>
+    <div class="main">
+        <ul class="buyukimg">
+            <li>
+                <img src="images/resim-1.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/resim-2.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/resim-3.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/resim-4.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/resim-5.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/resim-6.jpg" alt="">
+            </li>
+        </ul>
+    </div>
+    <div class="tinyimg">
+        <div class="sol">&lt;</div>
+        <div class="orta">
+            <ul class="kucukimg">
+                <li>
+                    <img src="images/resim-1.jpg" width="75px">
+                </li>
+                <li>
+                    <img src="images/resim-2.jpg" width="75px">
+                </li>
+                <li>
+                    <img src="images/resim-3.jpg" width="75px">
+                </li>
+                <li>
+                    <img src="images/resim-4.jpg" width="75px">
+                </li>
+                <li>
+                    <img src="images/resim-5.jpg" width="75px">
+                </li>
+                <li>
+                    <img src="images/resim-6.jpg" width="75px">
+                </li>
+            </ul>
+        </div>
+        <div class="sag">&gt;</div>
+    </div>
+
+    <script src="jquery-3.6.0.js"></script>
+    <script>
+        var liElement=document.querySelectorAll("ul.buyukimg li");
+        var liElementKucuk=document.querySelectorAll("ul.kucukimg li")
+        var say=0;
+        var giden=null;
+        
+        
+        slider();
+        
+        var zamanla=setInterval(slider,3000);
+        var calistir=setInterval(cerceve,500);
+        function cerceve(){
+            for (var i=0;i<liElement.length;i++){
+                if(liElement[i].style.left=="0px"){
+                    liElementKucuk[i].style.width="100px";
+                    liElementKucuk[i].style.height="95px";
+                }else {
+                    liElementKucuk[i].style.width="80px";
+                    liElementKucuk[i].style.height="75px";
+                }
+            }
+       
+       }
+       function slider(){
+            if(say>=liElement.length){
+                say=0;
+            }
+            if(giden!=null){
+                liElement[giden].style.animation="ortadanSola 2s ease";
+                liElement[giden].style.left="640px";
+            }
+           liElement[say].style.animation="sagdanOrtaya 2s ease";
+           liElement[say].style.left=0;
+           giden=say;
+           say++;
+           
+       }
+       document.querySelector("div.main").onmouseover=function(){
+           clearInterval(zamanla);
+       }
+       document.querySelector("div.main").onmouseout=function(){
+           zamanla=setInterval(slider,3000);
+       }
+       document.querySelector("div.sol").onmouseover=function(){
+           clearInterval(zamanla);
+       }
+       document.querySelector("div.sol").onmouseout=function(){
+           zamanla=setInterval(slider,3000);
+       }
+       document.querySelector("div.sag").onmouseover=function(){
+           clearInterval(zamanla);
+       }
+       document.querySelector("div.sag").onmouseout=function(){
+           zamanla=setInterval(slider,3000);
+       }
+       document.querySelector("div.sag").onclick=function(){
+           slider();
+       }
+       document.querySelector("div.sol").onclick=function(){
+        say-=2;   
+        if(say<0)say=liElement.length-1;
+        slider();
+       }
+     var imgtikla=document.querySelectorAll("ul.kucukimg li");
+        console.log(imgtikla);
+        for (var i=0; i<imgtikla.length;i++){
+            imgtikla[i].childNodes[1].onclick=function(){
+                console.log(i);
+                say=i;
+                zamanla=setInterval(slider,3000);
+            }  
+    
+       }
+// var resim =document.getElementsByClassName("ul.kucukimg");   
+
+// for (var i = 0, len = resim.children.length; i < len; i++){
+//     resim.children[i].onclick=function(){
+//         alert(index);
+//         say=i;
+//     }
+// }
+    </script>
+
+</body>
+</html>
